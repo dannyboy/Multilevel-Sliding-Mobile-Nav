@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multilevel Sliding Mobile Nav</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .menu-button {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background-color: #00bcd4;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .nav-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      width: 100%;
+      height: 100%;
+      background: #f7f3e2;
+      color: #2c351b;
+      overflow: hidden;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .nav-container.active {
+      transform: translateX(0);
+    }
+
+    .nav {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    ul {
+      background: #f7f3e2;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      /* position: absolute;
+      top: 0; */
+      position: fixed;
+      top: 60px;
+      left: 100%;
+      width: 100%;
+      height: 100%;
+      transition: left 0.3s ease-in-out;
+    }
+
+    ul.toggled {
+      left: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    ul.parent {
+      left: 0;
+    }
+
+    .nav-item {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 1.25rem;
+      border-bottom: 1px solid #faf8ee;
+    }
+
+    .nav-item:first-of-type {
+      border-top: 1px solid #faf8ee;
+    }
+
+    .nav-item:last-of-type {
+      margin-bottom: 3rem;
+    }
+
+    .nav-item a {
+      text-decoration: none;
+      text-transform: lowercase;
+      color: #2c351b;
+      padding: 1.375rem;
+      width: 100%;
+    }
+
+    .submenu-toggle {
+      padding: 1.375rem;
+      border: none;
+      cursor: pointer;
+      background: none;
+    }
+
+    .submenu-toggle svg {
+      width: 1.5rem;
+      fill: #2c351b;
+    }
+
+    .back-button {
+      border-bottom: 1px solid #faf8ee;
+      padding: 1.375rem;
+      border: none;
+      cursor: pointer;
+      background: none;
+    }
+
+    .back-button svg {
+      width: 1.5rem;
+      fill: #2c351b;
+    }
+
+    .close-button {
+      margin: 0 0.5rem;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+      background: none;
+    }
+
+    .close-button svg {
+      width: 3rem;
+      fill: #2c351b;
+    }
+  </style>
+</head>
+
+<body>
+  <button class="menu-button" role="button">Menu</button>
+
+  <div class="nav-container" id="nav-container">
+    <button class="close-button" id="close-button" tabindex="0" role="button">
+      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 56.69 56.69">
+        <path
+          d="M36.19,37.19c-.26,0-.51-.1-.71-.29l-15.68-15.68c-.39-.39-.39-1.02,0-1.41s1.02-.39,1.41,0l15.68,15.68c.39,.39,.39,1.02,0,1.41-.2,.2-.45,.29-.71,.29Z">
+        </path>
+        <path
+          d="M20.5,37.19c-.26,0-.51-.1-.71-.29-.39-.39-.39-1.02,0-1.41l15.68-15.68c.39-.39,1.02-.39,1.41,0s.39,1.02,0,1.41l-15.68,15.68c-.2,.2-.45,.29-.71,.29Z">
+        </path>
+      </svg>
+    </button>
+
+    <div class="nav" id="nav">
+      <ul class="parent active" role="menu">
+        <li role="menuitem" class="nav-item"><a href="#">Home</a></li>
+        <li role="menuitem" class="nav-item"><a href="#">Exclusive Use</a></li>
+        <li role="menuitem" class="nav-item"><a href="/stay">Stay</a>
+          <ul>
+            <li role="menuitem" class="nav-item"><a href="/bell">Bell Tents</a></li>
+            <li role="menuitem" class="nav-item"><a href="#">Horse Lorry Library</a></li>
+            <li role="menuitem" class="nav-item"><a href="#">Outdoor Spa</a></li>
+            <li role="menuitem" class="nav-item"><a href="#">Shepherds Huts</a></li>
+            <li role="menuitem" class="nav-item"><a href="#">Walled Garden</a></li>
+          </ul>
+        </li>
+        <li role="menuitem" class="nav-item"><a href="#">Retreats</a></li>
+        <li role="menuitem" class="nav-item"><a href="#">Experiences</a>
+          <ul>
+            <li role="menuitem" class="nav-item"><a href="#">Outdoor Spa</a>
+              <ul>
+                <li role="menuitem" class="nav-item"><a href="#">Abc 123</a></li>
+                <li role="menuitem" class="nav-item"><a href="#">Pizza Huts</a></li>
+              </ul>
+            </li>
+            <li role="menuitem" class="nav-item"><a href="#">Shepherds Huts</a></li>
+            <li role="menuitem" class="nav-item"><a href="#">Walled Garden</a></li>
+          </ul>
+        </li>
+        <li role="menuitem" class="nav-item"><a href="#">Gallery</a></li>
+        <li role="menuitem" class="nav-item"><a href="#">About Us</a></li>
+        <li role="menuitem" class="nav-item"><a href="#">Explore</a></li>
+        <li role="menuitem" class="nav-item"><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <template id="submenu-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 31.5">
+      <path
+        d="M49.54,14.63L35.9.99c-.62-.62-1.62-.62-2.24,0s-.62,1.62,0,2.24l10.94,10.94H1.58c-.87,0-1.58.71-1.58,1.58s.71,1.58,1.58,1.58h43.01l-10.94,10.94c-.62.62-.62,1.62,0,2.24.31.31.71.46,1.12.46s.81-.15,1.12-.46l13.64-13.64c.3-.3.46-.7.46-1.12s-.17-.82-.46-1.12Z" />
+    </svg>
+  </template>
+
+  <template id="back-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 31">
+      <path
+        d="M.46,16.62l13.64,13.64c.62.62,1.62.62,2.24,0s.62-1.62,0-2.24l-10.94-10.94h43.01c.87,0,1.58-.71,1.58-1.58s-.71-1.58-1.58-1.58H5.4L16.34,2.98c.62-.62.62-1.62,0-2.24-.31-.31-.71-.46-1.12-.46s-.81.15-1.12.46L.46,14.38c-.3.3-.46.7-.46,1.12s.17.82.46,1.12Z" />
+    </svg>
+  </template>
+
+  <script>
+    const navContainer = document.getElementById('nav-container');
+    const menuButton = document.querySelector('.menu-button');
+    const closeButton = document.getElementById('close-button');
+    const parentMenu = document.querySelector('ul.parent');
+    const ACTIVE_CLASS = 'active';
+    const TOGGLED_CLASS = 'toggled';
+
+    // Update tabindex for accessibility
+    const updateTabIndexes = () => {
+      const allMenus = document.querySelectorAll('ul');
+      allMenus.forEach((menu) => {
+        const isActive = menu.classList.contains(ACTIVE_CLASS);
+        const focusableItems = menu.querySelectorAll('a, .submenu-toggle, .back-button');
+
+        focusableItems.forEach((item) => {
+          if (isActive) {
+            item.setAttribute('tabindex', '0'); // Make focusable
+          } else {
+            item.setAttribute('tabindex', '-1'); // Remove from tab order
+          }
+        });
+      });
+    };
+
+    const createIcon = (templateId) => {
+      const template = document.getElementById(templateId);
+      return template ? template.content.cloneNode(true) : null;
+    };
+
+    // Add submenu toggles and back buttons
+    const addSubmenuFeatures = () => {
+      const menuItems = document.querySelectorAll('li.nav-item');
+      menuItems.forEach((item) => {
+        const subMenu = item.querySelector('ul');
+        if (subMenu) {
+          // Add submenu toggle
+          const toggle = document.createElement('button');
+          toggle.classList.add('submenu-toggle');
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.appendChild(createIcon('submenu-icon'));
+          toggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const expanded = toggle.getAttribute('aria-expanded') === 'true';
+            toggle.setAttribute('aria-expanded', !expanded);
+            deactivateActiveClass();
+            subMenu.classList.add(ACTIVE_CLASS);
+            subMenu.classList.add(TOGGLED_CLASS);
+            updateTabIndexes();
+          });
+          item.insertBefore(toggle, subMenu);
+
+          // Add back button to submenu
+          const backListItem = document.createElement('li');
+          backListItem.classList.add('back-list-item');
+          const backButton = document.createElement('button');
+          backButton.classList.add('back-button');
+          backButton.appendChild(createIcon('back-icon'));
+          backButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            deactivateActiveClass();
+            const closestUL = backButton.closest('ul');
+            closestUL?.classList.remove(TOGGLED_CLASS);
+            const closestParentUL = backButton.closest('ul').parentElement.closest('ul');
+            closestParentUL?.classList.add(ACTIVE_CLASS);
+            updateTabIndexes();
+          });
+          backListItem.appendChild(backButton);
+          subMenu.prepend(backListItem); // Add <li> with the button at the top of the submenu
+        }
+      });
+      updateTabIndexes();
+    };
+
+    // Remove active class from all menus
+    const deactivateActiveClass = () => {
+      document.querySelectorAll('ul').forEach((menu) => {
+        menu.classList.remove(ACTIVE_CLASS);
+      });
+    };
+
+    // Remove toggled class from all menus
+    const deactivateToggledClass = () => {
+      document.querySelectorAll('ul').forEach((menu) => {
+        menu.classList.remove(TOGGLED_CLASS);
+      });
+    };
+
+    menuButton.addEventListener('click', () => {
+      navContainer.classList.add(ACTIVE_CLASS);
+      navContainer.classList.add(TOGGLED_CLASS);
+    });
+
+    closeButton.addEventListener('click', () => {
+      navContainer.classList.remove(ACTIVE_CLASS);
+      navContainer.classList.remove(TOGGLED_CLASS);
+      deactivateActiveClass();
+      deactivateToggledClass();
+      parentMenu.classList.add(ACTIVE_CLASS);
+      parentMenu.classList.add(TOGGLED_CLASS);
+      updateTabIndexes();
+    });
+
+    navContainer.addEventListener('click', (e) => {
+      if (e.target === navContainer) {
+        navContainer.classList.remove(ACTIVE_CLASS);
+        navContainer.classList.remove(TOGGLED_CLASS);
+        deactivateActiveClass();
+        parentMenu.classList.add(ACTIVE_CLASS);
+        parentMenu.classList.add(TOGGLED_CLASS);
+        updateTabIndexes();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeButton.click();
+      }
+    });
+
+    addSubmenuFeatures();
+  </script>
+
+</body>
+
+</html>
