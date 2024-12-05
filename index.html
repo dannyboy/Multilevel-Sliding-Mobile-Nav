@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Multilevel Sliding Mobile Nav</title>
+  <title>Multilevel Sliding Mobile Navigation</title>
   <style>
     body {
       margin: 0;
@@ -23,7 +23,7 @@
       border-radius: 4px;
     }
 
-    .nav-container {
+    .menu-container {
       position: fixed;
       top: 0;
       left: 0;
@@ -37,11 +37,11 @@
       transition: transform 0.3s ease-in-out;
     }
 
-    .nav-container.active {
+    .menu-container.active {
       transform: translateX(0);
     }
 
-    .nav {
+    .main-menu {
       position: relative;
       width: 100%;
       height: 100%;
@@ -61,19 +61,21 @@
       width: 100%;
       height: 100%;
       transition: left 0.3s ease-in-out;
-    }
-
-    ul.toggled {
-      left: 0;
       overflow-y: auto;
       overflow-x: hidden;
     }
 
-    ul.parent {
+    ul.toggled {
+      left: 0;
+
+      z-index: 100;
+    }
+
+    ul.main-menu--level-1 {
       left: 0;
     }
 
-    .nav-item {
+    .main-menu__item {
       margin: 0;
       display: flex;
       align-items: center;
@@ -82,15 +84,15 @@
       border-bottom: 1px solid #faf8ee;
     }
 
-    .nav-item:first-of-type {
+    .main-menu__item:first-of-type {
       border-top: 1px solid #faf8ee;
     }
 
-    .nav-item:last-of-type {
+    .main-menu__item:last-of-type {
       margin-bottom: 3rem;
     }
 
-    .nav-item a {
+    .main-menu__item a {
       text-decoration: none;
       text-transform: lowercase;
       color: #2c351b;
@@ -141,7 +143,7 @@
 <body>
   <button class="menu-button" role="button">Menu</button>
 
-  <div class="nav-container" id="nav-container">
+  <div class="menu-container" id="menu-container">
     <button class="close-button" id="close-button" tabindex="0" role="button">
       <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 56.69 56.69">
         <path
@@ -153,36 +155,36 @@
       </svg>
     </button>
 
-    <div class="nav" id="nav">
-      <ul class="parent active" role="menu">
-        <li role="menuitem" class="nav-item"><a href="#">Home</a></li>
-        <li role="menuitem" class="nav-item"><a href="#">Exclusive Use</a></li>
-        <li role="menuitem" class="nav-item"><a href="/stay">Stay</a>
+    <div class="main-menu" id="main-menu">
+      <ul class="main-menu--level-1 active" role="menu">
+        <li role="menuitem" class="main-menu__item"><a href="#">Home</a></li>
+        <li role="menuitem" class="main-menu__item"><a href="#">Exclusive Use</a></li>
+        <li role="menuitem" class="main-menu__item"><a href="/stay">Stay</a>
           <ul>
-            <li role="menuitem" class="nav-item"><a href="/bell">Bell Tents</a></li>
-            <li role="menuitem" class="nav-item"><a href="#">Horse Lorry Library</a></li>
-            <li role="menuitem" class="nav-item"><a href="#">Outdoor Spa</a></li>
-            <li role="menuitem" class="nav-item"><a href="#">Shepherds Huts</a></li>
-            <li role="menuitem" class="nav-item"><a href="#">Walled Garden</a></li>
+            <li role="menuitem" class="main-menu__item"><a href="/bell">Bell Tents</a></li>
+            <li role="menuitem" class="main-menu__item"><a href="#">Horse Lorry Library</a></li>
+            <li role="menuitem" class="main-menu__item"><a href="#">Outdoor Spa</a></li>
+            <li role="menuitem" class="main-menu__item"><a href="#">Shepherds Huts</a></li>
+            <li role="menuitem" class="main-menu__item"><a href="#">Walled Garden</a></li>
           </ul>
         </li>
-        <li role="menuitem" class="nav-item"><a href="#">Retreats</a></li>
-        <li role="menuitem" class="nav-item"><a href="#">Experiences</a>
+        <li role="menuitem" class="main-menu__item"><a href="#">Retreats</a></li>
+        <li role="menuitem" class="main-menu__item"><a href="#">Experiences</a>
           <ul>
-            <li role="menuitem" class="nav-item"><a href="#">Outdoor Spa</a>
+            <li role="menuitem" class="main-menu__item"><a href="#">Outdoor Spa</a>
               <ul>
-                <li role="menuitem" class="nav-item"><a href="#">Abc 123</a></li>
-                <li role="menuitem" class="nav-item"><a href="#">Pizza Huts</a></li>
+                <li role="menuitem" class="main-menu__item"><a href="#">Abc 123</a></li>
+                <li role="menuitem" class="main-menu__item"><a href="#">Pizza Huts</a></li>
               </ul>
             </li>
-            <li role="menuitem" class="nav-item"><a href="#">Shepherds Huts</a></li>
-            <li role="menuitem" class="nav-item"><a href="#">Walled Garden</a></li>
+            <li role="menuitem" class="main-menu__item"><a href="#">Shepherds Huts</a></li>
+            <li role="menuitem" class="main-menu__item"><a href="#">Walled Garden</a></li>
           </ul>
         </li>
-        <li role="menuitem" class="nav-item"><a href="#">Gallery</a></li>
-        <li role="menuitem" class="nav-item"><a href="#">About Us</a></li>
-        <li role="menuitem" class="nav-item"><a href="#">Explore</a></li>
-        <li role="menuitem" class="nav-item"><a href="#">Contact Us</a></li>
+        <li role="menuitem" class="main-menu__item"><a href="#">Gallery</a></li>
+        <li role="menuitem" class="main-menu__item"><a href="#">About Us</a></li>
+        <li role="menuitem" class="main-menu__item"><a href="#">Explore</a></li>
+        <li role="menuitem" class="main-menu__item"><a href="#">Contact Us</a></li>
       </ul>
     </div>
   </div>
@@ -202,10 +204,10 @@
   </template>
 
   <script>
-    const navContainer = document.getElementById('nav-container');
+    const menuContainer = document.getElementById('menu-container');
     const menuButton = document.querySelector('.menu-button');
-    const closeButton = document.getElementById('close-button');
-    const parentMenu = document.querySelector('ul.parent');
+    const closeButton = document.querySelector('.menu-container .close-button');
+    const parentMenu = document.querySelector('ul.main-menu--level-1');
     const ACTIVE_CLASS = 'active';
     const TOGGLED_CLASS = 'toggled';
 
@@ -233,7 +235,7 @@
 
     // Add submenu toggles and back buttons
     const addSubmenuFeatures = () => {
-      const menuItems = document.querySelectorAll('li.nav-item');
+      const menuItems = document.querySelectorAll('li.main-menu__item');
       menuItems.forEach((item) => {
         const subMenu = item.querySelector('ul');
         if (subMenu) {
@@ -290,13 +292,13 @@
     };
 
     menuButton.addEventListener('click', () => {
-      navContainer.classList.add(ACTIVE_CLASS);
-      navContainer.classList.add(TOGGLED_CLASS);
+      menuContainer.classList.add(ACTIVE_CLASS);
+      menuContainer.classList.add(TOGGLED_CLASS);
     });
 
     closeButton.addEventListener('click', () => {
-      navContainer.classList.remove(ACTIVE_CLASS);
-      navContainer.classList.remove(TOGGLED_CLASS);
+      menuContainer.classList.remove(ACTIVE_CLASS);
+      menuContainer.classList.remove(TOGGLED_CLASS);
       deactivateActiveClass();
       deactivateToggledClass();
       parentMenu.classList.add(ACTIVE_CLASS);
@@ -304,10 +306,10 @@
       updateTabIndexes();
     });
 
-    navContainer.addEventListener('click', (e) => {
-      if (e.target === navContainer) {
-        navContainer.classList.remove(ACTIVE_CLASS);
-        navContainer.classList.remove(TOGGLED_CLASS);
+    menuContainer.addEventListener('click', (e) => {
+      if (e.target === menuContainer) {
+        menuContainer.classList.remove(ACTIVE_CLASS);
+        menuContainer.classList.remove(TOGGLED_CLASS);
         deactivateActiveClass();
         parentMenu.classList.add(ACTIVE_CLASS);
         parentMenu.classList.add(TOGGLED_CLASS);
