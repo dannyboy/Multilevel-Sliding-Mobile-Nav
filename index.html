@@ -11,6 +11,10 @@
       font-family: Arial, sans-serif;
     }
 
+    .sr-only {
+      display: none;
+    }
+
     .menu-button {
       position: fixed;
       top: 15px;
@@ -21,6 +25,10 @@
       border: none;
       cursor: pointer;
       border-radius: 4px;
+    }
+
+    .menu-button svg {
+      width: 2rem;
     }
 
     .menu-container {
@@ -141,9 +149,15 @@
 </head>
 
 <body>
-  <button class="menu-button" role="button">Menu</button>
+  <button class="menu-button" aria-controls="main-navigation" aria-expanded="false" role="button">
+    <span class="menu-button__text sr-only">Menu</span>
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 100" class="menu-button__hambuger">
+      <rect y="31" width="100" height="5"></rect>
+      <rect y="70" width="100" height="5"></rect>
+    </svg>
+  </button>
 
-  <div class="menu-container" id="menu-container">
+  <div id="menu-container" class="menu-container" data-visible="false">
     <button class="close-button" id="close-button" tabindex="0" role="button">
       <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 56.69 56.69">
         <path
@@ -159,9 +173,9 @@
       <ul class="main-menu--level-1 active" role="menu">
         <li role="menuitem" class="main-menu__item"><a href="#">Home</a></li>
         <li role="menuitem" class="main-menu__item"><a href="#">Exclusive Use</a></li>
-        <li role="menuitem" class="main-menu__item"><a href="/stay">Stay</a>
+        <li role="menuitem" class="main-menu__item"><a href="#">Stay</a>
           <ul>
-            <li role="menuitem" class="main-menu__item"><a href="/bell">Bell Tents</a></li>
+            <li role="menuitem" class="main-menu__item"><a href="#">Bell Tents</a></li>
             <li role="menuitem" class="main-menu__item"><a href="#">Horse Lorry Library</a></li>
             <li role="menuitem" class="main-menu__item"><a href="#">Outdoor Spa</a></li>
             <li role="menuitem" class="main-menu__item"><a href="#">Shepherds Huts</a></li>
@@ -204,25 +218,28 @@
   </template>
 
   <script>
-    const menuContainer = document.getElementById('menu-container');
-    const menuButton = document.querySelector('.menu-button');
-    const closeButton = document.querySelector('.menu-container .close-button');
-    const parentMenu = document.querySelector('ul.main-menu--level-1');
-    const ACTIVE_CLASS = 'active';
-    const TOGGLED_CLASS = 'toggled';
+    const HTMLTag = document.documentElement;
+    const menuContainer = document.getElementById("menu-container");
+    const menuButton = document.querySelector(".menu-button");
+    const closeButton = document.querySelector(".close-button");
+    const parentMenu = document.querySelector("ul.main-menu--level-1");
+    const ACTIVE_CLASS = "active";
+    const TOGGLED_CLASS = "toggled";
 
     // Update tabindex for accessibility
     const updateTabIndexes = () => {
-      const allMenus = document.querySelectorAll('ul');
+      const allMenus = document.querySelectorAll("ul");
       allMenus.forEach((menu) => {
         const isActive = menu.classList.contains(ACTIVE_CLASS);
-        const focusableItems = menu.querySelectorAll('a, .submenu-toggle, .back-button');
+        const focusableItems = menu.querySelectorAll(
+          "a, .submenu-toggle, .back-button"
+        );
 
         focusableItems.forEach((item) => {
           if (isActive) {
-            item.setAttribute('tabindex', '0'); // Make focusable
+            item.setAttribute("tabindex", "0"); // Make focusable
           } else {
-            item.setAttribute('tabindex', '-1'); // Remove from tab order
+            item.setAttribute("tabindex", "-1"); // Remove from tab order
           }
         });
       });
@@ -235,19 +252,19 @@
 
     // Add submenu toggles and back buttons
     const addSubmenuFeatures = () => {
-      const menuItems = document.querySelectorAll('li.main-menu__item');
+      const menuItems = document.querySelectorAll("li.main-menu__item");
       menuItems.forEach((item) => {
-        const subMenu = item.querySelector('ul');
+        const subMenu = item.querySelector("ul");
         if (subMenu) {
           // Add submenu toggle
-          const toggle = document.createElement('button');
-          toggle.classList.add('submenu-toggle');
-          toggle.setAttribute('aria-expanded', 'false');
-          toggle.appendChild(createIcon('submenu-icon'));
-          toggle.addEventListener('click', (e) => {
+          const toggle = document.createElement("button");
+          toggle.classList.add("submenu-toggle");
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.appendChild(createIcon("submenu-icon"));
+          toggle.addEventListener("click", (e) => {
             e.stopPropagation();
-            const expanded = toggle.getAttribute('aria-expanded') === 'true';
-            toggle.setAttribute('aria-expanded', !expanded);
+            const expanded = toggle.getAttribute("aria-expanded") === "true";
+            toggle.setAttribute("aria-expanded", !expanded);
             deactivateActiveClass();
             subMenu.classList.add(ACTIVE_CLASS);
             subMenu.classList.add(TOGGLED_CLASS);
@@ -256,17 +273,19 @@
           item.insertBefore(toggle, subMenu);
 
           // Add back button to submenu
-          const backListItem = document.createElement('li');
-          backListItem.classList.add('back-list-item');
-          const backButton = document.createElement('button');
-          backButton.classList.add('back-button');
-          backButton.appendChild(createIcon('back-icon'));
-          backButton.addEventListener('click', (e) => {
+          const backListItem = document.createElement("li");
+          backListItem.classList.add("back-list-item");
+          const backButton = document.createElement("button");
+          backButton.classList.add("back-button");
+          backButton.appendChild(createIcon("back-icon"));
+          backButton.addEventListener("click", (e) => {
             e.stopPropagation();
             deactivateActiveClass();
-            const closestUL = backButton.closest('ul');
+            const closestUL = backButton.closest("ul");
             closestUL?.classList.remove(TOGGLED_CLASS);
-            const closestParentUL = backButton.closest('ul').parentElement.closest('ul');
+            const closestParentUL = backButton
+              .closest("ul")
+              .parentElement.closest("ul");
             closestParentUL?.classList.add(ACTIVE_CLASS);
             updateTabIndexes();
           });
@@ -279,26 +298,30 @@
 
     // Remove active class from all menus
     const deactivateActiveClass = () => {
-      document.querySelectorAll('ul').forEach((menu) => {
+      document.querySelectorAll("ul").forEach((menu) => {
         menu.classList.remove(ACTIVE_CLASS);
       });
     };
 
     // Remove toggled class from all menus
     const deactivateToggledClass = () => {
-      document.querySelectorAll('ul').forEach((menu) => {
+      document.querySelectorAll("ul").forEach((menu) => {
         menu.classList.remove(TOGGLED_CLASS);
       });
     };
 
-    menuButton.addEventListener('click', () => {
+    menuButton.addEventListener("click", () => {
+      HTMLTag.classList.add("menu-expanded");
+      menuButton.setAttribute("aria-expanded", true);
+      menuContainer.setAttribute("data-visible", true);
       menuContainer.classList.add(ACTIVE_CLASS);
-      menuContainer.classList.add(TOGGLED_CLASS);
     });
 
-    closeButton.addEventListener('click', () => {
+    closeButton.addEventListener("click", () => {
+      HTMLTag.classList.remove("menu-expanded");
+      menuButton.setAttribute("aria-expanded", false);
+      menuContainer.setAttribute("data-visible", false);
       menuContainer.classList.remove(ACTIVE_CLASS);
-      menuContainer.classList.remove(TOGGLED_CLASS);
       deactivateActiveClass();
       deactivateToggledClass();
       parentMenu.classList.add(ACTIVE_CLASS);
@@ -306,10 +329,9 @@
       updateTabIndexes();
     });
 
-    menuContainer.addEventListener('click', (e) => {
+    menuContainer.addEventListener("click", (e) => {
       if (e.target === menuContainer) {
         menuContainer.classList.remove(ACTIVE_CLASS);
-        menuContainer.classList.remove(TOGGLED_CLASS);
         deactivateActiveClass();
         parentMenu.classList.add(ACTIVE_CLASS);
         parentMenu.classList.add(TOGGLED_CLASS);
@@ -317,8 +339,8 @@
       }
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
         closeButton.click();
       }
     });
