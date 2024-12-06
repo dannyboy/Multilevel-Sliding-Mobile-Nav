@@ -11,15 +11,28 @@
       font-family: Arial, sans-serif;
     }
 
+    *:focus {
+      box-shadow: inset 0 0 0 2px #00bcd4;
+      outline: none;
+    }
+
     .sr-only {
-      display: none;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     .menu-button {
       position: fixed;
       top: 15px;
       left: 15px;
-      background-color: #00bcd4;
+      background-color: #548e96;
       color: white;
       padding: 10px 20px;
       border: none;
@@ -149,7 +162,7 @@
 </head>
 
 <body>
-  <button class="menu-button" aria-controls="main-navigation" aria-expanded="false" role="button">
+  <button class="menu-button" aria-controls="main-navigation" aria-label="Open navigation menu" aria-expanded="false">
     <span class="menu-button__text sr-only">Menu</span>
     <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 100" class="menu-button__hambuger">
       <rect y="31" width="100" height="5"></rect>
@@ -158,7 +171,7 @@
   </button>
 
   <div id="menu-container" class="menu-container" data-visible="false">
-    <button class="close-button" id="close-button" tabindex="0" role="button">
+    <button class="close-button" id="close-button" tabindex="0" aria-label="Close navigation menu">
       <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 56.69 56.69">
         <path
           d="M36.19,37.19c-.26,0-.51-.1-.71-.29l-15.68-15.68c-.39-.39-.39-1.02,0-1.41s1.02-.39,1.41,0l15.68,15.68c.39,.39,.39,1.02,0,1.41-.2,.2-.45,.29-.71,.29Z">
@@ -171,34 +184,49 @@
 
     <div class="main-menu" id="main-menu">
       <ul class="main-menu--level-1 active" role="menu">
-        <li role="menuitem" class="main-menu__item"><a href="#">Home</a></li>
-        <li role="menuitem" class="main-menu__item"><a href="#">Exclusive Use</a></li>
-        <li role="menuitem" class="main-menu__item"><a href="#">Stay</a>
-          <ul>
-            <li role="menuitem" class="main-menu__item"><a href="#">Bell Tents</a></li>
-            <li role="menuitem" class="main-menu__item"><a href="#">Horse Lorry Library</a></li>
-            <li role="menuitem" class="main-menu__item"><a href="#">Outdoor Spa</a></li>
-            <li role="menuitem" class="main-menu__item"><a href="#">Shepherds Huts</a></li>
-            <li role="menuitem" class="main-menu__item"><a href="#">Walled Garden</a></li>
-          </ul>
-        </li>
-        <li role="menuitem" class="main-menu__item"><a href="#">Retreats</a></li>
-        <li role="menuitem" class="main-menu__item"><a href="#">Experiences</a>
-          <ul>
-            <li role="menuitem" class="main-menu__item"><a href="#">Outdoor Spa</a>
-              <ul>
-                <li role="menuitem" class="main-menu__item"><a href="#">Abc 123</a></li>
-                <li role="menuitem" class="main-menu__item"><a href="#">Pizza Huts</a></li>
+        <li role="menuitem" class="main-menu__item"><a href="#">Lorem Ipsum</a></li>
+        <li role="menuitem" class="main-menu__item"><a href="#">Dolor Sit Amet</a></li>
+        <li role="menuitem" class="main-menu__item"><a href="#">Consectetur Adipiscing</a>
+          <ul role="menu">
+            <li role="menuitem" class="main-menu__item"><a href="#">Bellum Tentorium</a></li>
+            <li role="menuitem" class="main-menu__item"><a href="#">Equus Locus</a></li>
+            <li role="menuitem" class="main-menu__item"><a href="#">Spa Naturalium</a></li>
+            <li role="menuitem" class="main-menu__item"><a href="#">Hortis Pastoralis</a></li>
+            <li role="menuitem" class="main-menu__item"><a href="#">Viridarium Claustrum</a>
+              <ul role="menu">
+                <li role="menuitem" class="main-menu__item"><a href="#">Submenu Alpha</a></li>
+                <li role="menuitem" class="main-menu__item"><a href="#">Submenu Beta</a></li>
               </ul>
             </li>
-            <li role="menuitem" class="main-menu__item"><a href="#">Shepherds Huts</a></li>
-            <li role="menuitem" class="main-menu__item"><a href="#">Walled Garden</a></li>
           </ul>
         </li>
-        <li role="menuitem" class="main-menu__item"><a href="#">Gallery</a></li>
-        <li role="menuitem" class="main-menu__item"><a href="#">About Us</a></li>
-        <li role="menuitem" class="main-menu__item"><a href="#">Explore</a></li>
-        <li role="menuitem" class="main-menu__item"><a href="#">Contact Us</a></li>
+        <li role="menuitem" class="main-menu__item"><a href="#">Retreatum Ipsum</a></li>
+        <li role="menuitem" class="main-menu__item"><a href="#">Experientiae</a>
+          <ul role="menu">
+            <li role="menuitem" class="main-menu__item"><a href="#">Spa Natura</a>
+              <ul role="menu">
+                <li role="menuitem" class="main-menu__item"><a href="#">Subitem 1</a></li>
+                <li role="menuitem" class="main-menu__item"><a href="#">Subitem 2</a></li>
+              </ul>
+            </li>
+            <li role="menuitem" class="main-menu__item"><a href="#">Pastoris Locus</a></li>
+            <li role="menuitem" class="main-menu__item"><a href="#">Claustrum Horti</a>
+              <ul role="menu">
+                <li role="menuitem" class="main-menu__item"><a href="#">Nested Alpha</a></li>
+                <li role="menuitem" class="main-menu__item"><a href="#">Nested Beta</a>
+                  <ul role="menu">
+                    <li role="menuitem" class="main-menu__item"><a href="#">Level 4 Item</a></li>
+                    <li role="menuitem" class="main-menu__item"><a href="#">Another Level 4</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li role="menuitem" class="main-menu__item"><a href="#">Galerium</a></li>
+        <li role="menuitem" class="main-menu__item"><a href="#">De Nobis</a></li>
+        <li role="menuitem" class="main-menu__item"><a href="#">Exploratio</a></li>
+        <li role="menuitem" class="main-menu__item"><a href="#">Contactus</a></li>
       </ul>
     </div>
   </div>
@@ -260,6 +288,7 @@
           const toggle = document.createElement("button");
           toggle.classList.add("submenu-toggle");
           toggle.setAttribute("aria-expanded", "false");
+          toggle.setAttribute("aria-label", "Open submenu");
           toggle.appendChild(createIcon("submenu-icon"));
           toggle.addEventListener("click", (e) => {
             e.stopPropagation();
